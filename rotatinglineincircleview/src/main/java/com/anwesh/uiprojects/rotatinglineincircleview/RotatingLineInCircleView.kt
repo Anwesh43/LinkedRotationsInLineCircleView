@@ -59,3 +59,21 @@ fun Canvas.drawRLICNode(i : Int, scale : Float, paint : Paint) {
     drawLine(0f, 0f, 0f, -size * sc1, paint)
     restore()
 }
+
+class RotatingLineInCircleView(ctx : Context) : View(ctx) {
+
+    private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    override fun onDraw(canvas : Canvas) {
+
+    }
+
+    override fun onTouchEvent(event : MotionEvent) : Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+
+            }
+        }
+        return true
+    }
+}
