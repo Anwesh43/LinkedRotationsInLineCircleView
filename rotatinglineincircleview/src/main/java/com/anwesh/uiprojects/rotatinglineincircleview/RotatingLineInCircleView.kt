@@ -21,6 +21,7 @@ val sizeFactor : Float = 2.7f
 val strokeFactor : Int = 90
 val MAX_DEG : Float = 100f
 val RADIUS_FACTOR : Float = 2.0f
+val DELAY : Long = 25
 
 fun Int.inverse() : Float = 1f / this
 
@@ -105,7 +106,7 @@ class RotatingLineInCircleView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(DELAY)
                     view.invalidate()
                 } catch(ex : Exception) {
 
