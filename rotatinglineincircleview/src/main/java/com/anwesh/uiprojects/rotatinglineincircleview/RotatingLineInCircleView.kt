@@ -169,4 +169,28 @@ class RotatingLineInCircleView(ctx : Context) : View(ctx) {
             return this
         }
     }
+
+    data class RotatingLineInCircle(var i : Int) {
+
+        private val root : RLICNode = RLICNode(0)
+        private var curr : RLICNode = root
+        private var dir : Int = 1
+
+        fun draw(canvas : Canvas, paint : Paint) {
+            root.draw(canvas, paint)
+        }
+
+        fun update(cb : (Int, Float) -> Unit) {
+            curr.update {i, scl ->
+                curr = curr.getNext(dir) {
+                    dir *= -1
+                }
+                cb(i, scl)
+            }
+        }
+
+        fun statUpdating(cb : () -> Unit) {
+            curr.startUpdating(cb)
+        }
+    }
 }
