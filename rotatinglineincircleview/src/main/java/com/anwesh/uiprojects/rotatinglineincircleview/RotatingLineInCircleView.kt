@@ -13,13 +13,14 @@ import android.graphics.Color
 import android.content.Context
 
 val nodes : Int = 5
-val rotations : Int = 2
+val rotations : Int = 4
 val scGap : Float = 0.05f
 val scDiv : Double = 0.51
 val color : Int = Color.parseColor("#4527A0")
 val sizeFactor : Float = 2.7f
 val strokeFactor : Int = 90
-val MAX_DEG : Float = 90f
+val MAX_DEG : Float = 100f
+val RADIUS_FACTOR : Float = 2.0f
 
 fun Int.inverse() : Float = 1f / this
 
@@ -40,7 +41,7 @@ fun Canvas.drawRLICNode(i : Int, scale : Float, paint : Paint) {
     val h : Float = height.toFloat()
     val gap : Float = w / (nodes + 1)
     val size : Float = gap / sizeFactor
-    val r : Float = size/3
+    val r : Float = size / RADIUS_FACTOR
     paint.color = color
     paint.strokeWidth = Math.min(w, h) / strokeFactor
     paint.strokeCap = Paint.Cap.ROUND
@@ -53,7 +54,7 @@ fun Canvas.drawRLICNode(i : Int, scale : Float, paint : Paint) {
     var currDeg : Float = 0f
     for(j in 0..(rotations - 1)) {
         val sc : Float = sc2.divideScale(j, rotations)
-        currDeg += MAX_DEG * sc * (1 - 2 * j.percentileMirror())
+        currDeg += MAX_DEG * sc * j.percentileMirror()
     }
     rotate(currDeg)
     drawLine(0f, 0f, 0f, -size * sc1, paint)
