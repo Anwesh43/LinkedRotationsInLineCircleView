@@ -189,8 +189,30 @@ class RotatingLineInCircleView(ctx : Context) : View(ctx) {
             }
         }
 
-        fun statUpdating(cb : () -> Unit) {
+        fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
+        }
+    }
+
+    data class Renderer(var view : RotatingLineInCircleView) {
+
+        private val animator : Animator = Animator(view)
+        private val rlic : RotatingLineInCircle = RotatingLineInCircle(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            rlic.draw(canvas, paint)
+            animator.animate {
+                rlic.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            rlic.startUpdating {
+                animator.start()
+            }
         }
     }
 }
